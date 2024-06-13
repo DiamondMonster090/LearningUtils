@@ -20,3 +20,7 @@ w
 G.idea/sonarlint/issuestore/a/5/a5cc2925ca8258af241be7e5b0381edf30266302,e\d\ed67eb178d523a4b3f117dcbe0eda5196367ceec
 w
 G.idea/sonarlint/issuestore/1/e/1e9075f5bf079c01ef2c910709e91a497d262080,2\5\2511a7590eb091d560dac1615e6bcef0ceeaffb6
+D
+templates/index.html,f\6\f69b8ce2e31684ae06f1b3e84821e07e3dfddb2f
+E
+templates/layout.html,2\8\2805cb0bdd481924a49675a87943a56a4e285ef5
