@@ -24,3 +24,9 @@ D
 templates/index.html,f\6\f69b8ce2e31684ae06f1b3e84821e07e3dfddb2f
 E
 templates/layout.html,2\8\2805cb0bdd481924a49675a87943a56a4e285ef5
+;
+database.db,d\e\ded76fb0bf8b1032e5ef1a507db0c93f79c0dca0
+E
+templates/signup.html,7\b\7b67c1a6f2a7f65bff81b4b08078c3344a9f78aa
+D
+templates/login.html,f\f\ffdb36cd67c5e5e09ba8e92b13a1dc029c7c4627
