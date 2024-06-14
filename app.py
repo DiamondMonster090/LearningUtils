@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
-con = sqlite3.connect('database.db')
+con = sqlite3.connect('database.db', check_same_thread=False)
 cur = con.cursor()
 def login_required(f):
     """
@@ -33,19 +33,25 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        names = cur.execute('SELECT password FROM users WHERE username = ?', request.form.get(['username'])).fetchall()
-        if check_password_hash(names[0]["password"], request.form.get(['password'])):
-            session['user_id'] = names[0]["id"]
+        print(request.form.get('username'))
+        print(request.form.get('password'))
+        names = cur.execute('SELECT * FROM users WHERE name = ? AND password = ?', (request.form.get('username'), request.form.get('password'))).fetchall()
+        thing = cur.execute('SELECT * FROM users WHERE name = ?', (request.form.get('username'),)).fetchall()
+        print(names)
+        print(thing)
+        if len(names) == 1:
+            session['user_id'] = names[0][2]
             return redirect('/')
+        else:
+            return render_template('login.html')
     else:
         return render_template('login.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
-        cur.execute('INSERT INTO users (username, password) VALUES (?, ?)', (request.form.get(['username']), generate_password_hash(request.form.get(['password']))))
+        cur.execute('INSERT INTO users (name, password) VALUES (?, ?)', (request.form.get('username'),))
         con.commit()
-        session['user_id'] = request.form.get(['id'])
         return redirect('/')
     else:
         return render_template('signup.html')
@@ -59,3 +65,12 @@ def check_api(call_count, last_use_date, current_date):
         return True
     else:
         return False
+
+@app.route('/ai_chat')
+@login_required
+def ai_chat():
+    return render_template('ai_chat.html')
+
+def apology(error, code=400):
+    """Render message as an apology to user."""
+    return render_template("apology.html", error_code=code, error_description=error)
