@@ -19,7 +19,7 @@ def login():
     if request.method == 'POST':
         names = cur.execute('SELECT password FROM users WHERE username = ?', request.form.get(['username'])).fetchall()
         if check_password_hash(names[0]["password"], request.form.get(['password'])):
-            session['username'] = names[0]["username"]
+            session['user_id'] = names[0]["id"]
             return redirect('/')
     else:
         return render_template('login.html')
@@ -27,6 +27,9 @@ def login():
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
+        cur.execute('INSERT INTO users (username, password) VALUES (?, ?)', (request.form.get(['username']), generate_password_hash(request.form.get(['password']))))
+        con.commit()
+        session['user_id'] = request.form.get(['id'])
         return redirect('/')
     else:
         return render_template('signup.html')
