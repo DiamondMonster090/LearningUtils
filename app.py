@@ -51,3 +51,11 @@ def signup():
         return render_template('signup.html')
 
 MAX_GEMINI_FLASH_API_CALLS = 50
+
+def check_api(call_count, last_use_date, current_date):
+    if last_use_date != current_date:
+        call_count = 0
+    if call_count < MAX_GEMINI_FLASH_API_CALLS:
+        return True
+    else:
+        return False
