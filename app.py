@@ -1,3 +1,5 @@
+from functools import wraps
+
 from flask import Flask, render_template, request, redirect, session
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -9,6 +11,20 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 con = sqlite3.connect('database.db')
 cur = con.cursor()
+def login_required(f):
+    """
+    Decorate routes to require login.
+    Copied from CS50 week 9, finance project, from helpers.py
+    https://flask.palletsprojects.com/en/latest/patterns/viewdecorators/
+    """
+
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get("user_id") is None:
+            return redirect("/login")
+        return f(*args, **kwargs)
+
+    return decorated_function
 @app.route('/')
 def index():
 
