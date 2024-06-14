@@ -49,3 +49,5 @@ def signup():
         return redirect('/')
     else:
         return render_template('signup.html')
+
+MAX_GEMINI_FLASH_API_CALLS = 50
