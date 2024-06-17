@@ -30,3 +30,11 @@ E
 templates/signup.html,7\b\7b67c1a6f2a7f65bff81b4b08078c3344a9f78aa
 D
 templates/login.html,f\f\ffdb36cd67c5e5e09ba8e92b13a1dc029c7c4627
+F
+templates/ai_chat.html,2\f\2f6576174cd64a572d7e590048810deac90200e8
+F
+templates/apology.html,1\c\1c00d5855c8feb8329d54d3af7b2792b605734b3
+9
+	script.py,d\b\db3114d7223bc9bf7f8dd902c5a35833f8ffdf82
+4
+.env,3\c\3c84dcdc6bbe3d7817c49dcdc327b926fea1808a

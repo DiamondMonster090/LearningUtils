@@ -1,10 +1,12 @@
 from functools import wraps
-
+from datetime import date
 from flask import Flask, render_template, request, redirect, session
 from werkzeug.security import check_password_hash, generate_password_hash
-
+import google.generativeai as genai
+import os
 from flask_session import Session
 import sqlite3
+
 app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
@@ -55,21 +57,6 @@ def signup():
         return redirect('/')
     else:
         return render_template('signup.html')
-
-MAX_GEMINI_FLASH_API_CALLS = 50
-
-def check_api(call_count, last_use_date, current_date):
-    if last_use_date != current_date:
-        call_count = 0
-    if call_count < MAX_GEMINI_FLASH_API_CALLS:
-        return True
-    else:
-        return False
-
-@app.route('/ai_chat')
-@login_required
-def ai_chat():
-    return render_template('ai_chat.html')
 
 def apology(error, code=400):
     """Render message as an apology to user."""

@@ -1,6 +1,8 @@
 # My own ignore
 phpliteadmin.php
 sqlite3.exe
+*.env
+script.py
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
