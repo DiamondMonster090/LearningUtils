@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% block title %}My Classes{% endblock %}
+{% block main %}
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-create-tab" data-bs-toggle="tab" data-bs-target="#nav-create" type="button" role="tab" aria-controls="nav-create" aria-selected="true">Create a class</button>
+            <button class="nav-link active" id="nav-edit-tab" data-bs-toggle="tab" data-bs-target="#nav-edit" type="button" role="tab" aria-controls="nav-edit" aria-selected="true">Edit a class</button>
+
+            {% for class in classes %}
+            <button class="nav-link" id='nav-{{ class["name"] }}-tab' data-bs-toggle="tab" data-bs-target='#nav-{{ class["name"] }}' type="button" role="tab" aria-controls='nav-{{ class["name"] }}' aria-selected="false">{{ class["name"] }}</button>
+
+            {% endfor %}
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-create" role="tabpanel" aria-labelledby="nav-create-tab">
+            <h1>Welcome To Classes View!</h1>
+            <p>Create a new class here.</p>
+
+        </div>
+        <div class="tab-pane fade show active" id="nav-edit" role="tabpanel" aria-labelledby="nav-edit-tab">
+            <h1>Edit classes</h1>
+            <div class="mb-3">
+                <label for="class_name" class="form-label">Class Name</label>
+                <input class="form-control" list="datalistOptions" id="class_name" name="class_name" placeholder="Class Name">
+                <datalist id="datalistOptions">
+                    {% for class in classes %}
+                        <option value='{{ class["name"] }}'>{{ class["name"] }}</option>
+                    {% endfor %}
+                </datalist>
+            </div>
+
+        </div>
+        {% for class in classes %}
+        <div class="tab-pane fade" id='nav-{{ class["name"] }}' role="tabpanel" aria-labelledby='nav-{{ class["name"] }}-tab'>
+            <h2>{{ class["name"] }}</h2>
+            <p>{{ class["description"] }}</p>
+        </div>
+        {% endfor %}
+        </div>
+{% endblock %}

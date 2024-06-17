@@ -38,3 +38,5 @@ F
 	script.py,d\b\db3114d7223bc9bf7f8dd902c5a35833f8ffdf82
 4
 .env,3\c\3c84dcdc6bbe3d7817c49dcdc327b926fea1808a
+F
+templates/classes.html,d\a\daa72b13d5dbccf3b7752275ad97971754323dbe

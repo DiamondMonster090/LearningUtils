@@ -57,6 +57,9 @@ def signup():
         return redirect('/')
     else:
         return render_template('signup.html')
+@app.route('/classes')
+def classes():
+    return render_template('classes.html', classes=cur.execute('SELECT * FROM classes WHERE user_id = ?', (session['user_id'],)).fetchall())
 
 def apology(error, code=400):
     """Render message as an apology to user."""
