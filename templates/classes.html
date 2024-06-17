@@ -4,10 +4,10 @@
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
             <button class="nav-link active" id="nav-create-tab" data-bs-toggle="tab" data-bs-target="#nav-create" type="button" role="tab" aria-controls="nav-create" aria-selected="true">Create a class</button>
-            <button class="nav-link active" id="nav-edit-tab" data-bs-toggle="tab" data-bs-target="#nav-edit" type="button" role="tab" aria-controls="nav-edit" aria-selected="true">Edit a class</button>
+            <button class="nav-link" id="nav-edit-tab" data-bs-toggle="tab" data-bs-target="#nav-edit" type="button" role="tab" aria-controls="nav-edit" aria-selected="true">Edit a class</button>
 
             {% for class in classes %}
-            <button class="nav-link" id='nav-{{ class["name"] }}-tab' data-bs-toggle="tab" data-bs-target='#nav-{{ class["name"] }}' type="button" role="tab" aria-controls='nav-{{ class["name"] }}' aria-selected="false">{{ class["name"] }}</button>
+                <button class="nav-link" id='nav-{{ class[2] }}-tab' data-bs-toggle="tab" data-bs-target='#nav-{{ class[2] }}' type="button" role="tab" aria-controls='nav-{{ class[2] }}' aria-selected="false">{{ class[2] }}</button>
 
             {% endfor %}
         </div>
@@ -16,25 +16,35 @@
         <div class="tab-pane fade show active" id="nav-create" role="tabpanel" aria-labelledby="nav-create-tab">
             <h1>Welcome To Classes View!</h1>
             <p>Create a new class here.</p>
+            <form method="post" action="/classes">
+
+                <label for="class_name-create" class="form-label">Class Name</label>
+               <input type="text" class="form-control" id="class_name-create" name="class_name" placeholder="Class Name">
+                <input type="hidden" name="request_type" value="create">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
 
         </div>
-        <div class="tab-pane fade show active" id="nav-edit" role="tabpanel" aria-labelledby="nav-edit-tab">
+        <div class="tab-pane fade show" id="nav-edit" role="tabpanel" aria-labelledby="nav-edit-tab">
             <h1>Edit classes</h1>
-            <div class="mb-3">
+            <form method="post" action="/classes">
+
                 <label for="class_name" class="form-label">Class Name</label>
                 <input class="form-control" list="datalistOptions" id="class_name" name="class_name" placeholder="Class Name">
                 <datalist id="datalistOptions">
                     {% for class in classes %}
-                        <option value='{{ class["name"] }}'>{{ class["name"] }}</option>
+                    <option value='{{ class[2] }}'>{{ class[2] }}</option>
                     {% endfor %}
                 </datalist>
-            </div>
+                <input type="hidden" name="request_type" value="edit">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
 
         </div>
         {% for class in classes %}
-        <div class="tab-pane fade" id='nav-{{ class["name"] }}' role="tabpanel" aria-labelledby='nav-{{ class["name"] }}-tab'>
-            <h2>{{ class["name"] }}</h2>
-            <p>{{ class["description"] }}</p>
+        <div class="tab-pane fade" id='nav-{{ class[2] }}' role="tabpanel" aria-labelledby='nav-{{ class[2] }}-tab'>
+            <h2>{{ class[2] }}</h2>
+            <p>{{ class[3] }}</p>
         </div>
         {% endfor %}
         </div>

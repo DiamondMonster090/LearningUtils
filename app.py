@@ -57,8 +57,14 @@ def signup():
         return redirect('/')
     else:
         return render_template('signup.html')
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
 @app.route('/classes')
+@login_required
 def classes():
+    print(cur.execute('SELECT * FROM classes WHERE user_id = ?', (session['user_id'],)).fetchall())
     return render_template('classes.html', classes=cur.execute('SELECT * FROM classes WHERE user_id = ?', (session['user_id'],)).fetchall())
 
 def apology(error, code=400):
