@@ -4,6 +4,7 @@ from flask import Flask, render_template, request, redirect, session
 from werkzeug.security import check_password_hash, generate_password_hash
 import google.generativeai as genai
 import os
+import ctypes as ct
 from flask_session import Session
 import sqlite3
 
@@ -61,11 +62,23 @@ def signup():
 def logout():
     session.clear()
     return redirect('/')
-@app.route('/classes')
+@app.route('/classes', methods=['GET', 'POST'])
 @login_required
 def classes():
-    print(cur.execute('SELECT * FROM classes WHERE user_id = ?', (session['user_id'],)).fetchall())
-    return render_template('classes.html', classes=cur.execute('SELECT * FROM classes WHERE user_id = ?', (session['user_id'],)).fetchall())
+    if request.method == 'POST':
+        print(request.form)
+        match request.form.get('request_type'):
+            case 'create':
+                cur.execute('INSERT INTO classes (class_name, description, user_id) VALUES (?, ?, ?)', (request.form.get('class_name_create'), request.form.get('class_desc_create'), session['user_id']))
+                con.commit()
+                links = request.form.get('class_files_create').replace('\n', ', ')
+                cur.execute('UPDATE classes SET drive_links = ? WHERE class_name = ? AND user_id = ?', (links, request.form.get('class_name_create'), session['user_id']))
+            case 'delete':
+                cur.execute('DELETE FROM classes WHERE class_name = ? AND user_id = ?', (request.form.get('class_name_delete'), session['user_id']))
+                con.commit()
+        return redirect('/classes')
+    else:
+        return render_template('classes.html', classes=cur.execute('SELECT * FROM classes WHERE user_id = ?', (session['user_id'],)).fetchall())
 
 def apology(error, code=400):
     """Render message as an apology to user."""
