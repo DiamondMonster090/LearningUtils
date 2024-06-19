@@ -40,3 +40,9 @@ F
 .env,3\c\3c84dcdc6bbe3d7817c49dcdc327b926fea1808a
 F
 templates/classes.html,d\a\daa72b13d5dbccf3b7752275ad97971754323dbe
+@
+requirements.txt,1\9\19359a61ae2446b51b549167b014da2fcf265768
+7
+Pipfile,1\5\15af4b3d30054104e85f65a444b1db188c5deefb
+;
+vercel.json,8\3\83188a989cfa5952424962eec8f2d0f97ba87e09

@@ -23,7 +23,7 @@
                 <input type="text" class="form-control" id="class_name_create" name="class_name_create" placeholder="Class Name">
                 <input type="text" class="form-control" id="class_desc_create" name="class_desc_create" placeholder="Class Description">
                 <input type="hidden" name="request_type" value="create">
-                <textarea class="form-control" id="class_files_create" name="class_files_create" rows="3">Google drive links. (If you want add files, upload them to Google Drive and put the link here. if you have multiple files, put them in a new line)</textarea>
+                <textarea class="form-control" id="class_files_create" name="class_files_create" rows="3" placeholder="Google drive links. (If you want add files, upload them to Google Drive and put the link here. if you have multiple files, put them in a new line)"></textarea>
 
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
@@ -49,6 +49,11 @@
             <div class="tab-pane fade" id='nav-{{ class[2] }}' role="tabpanel" aria-labelledby='nav-{{ class[2] }}-tab'>
                 <h2>{{ class[2] }}</h2>
                 <p>{{ class[3] }}</p>
+                {% if links %}
+                    {% for link in links %}
+                        <a href="{{ link }}" role="button" class="btn btn-primary">{{ link }}</a>
+                    {% endfor %}
+                {% endif %}
             </div>
         {% endfor %}
         </div>

@@ -78,7 +78,8 @@ def classes():
                 con.commit()
         return redirect('/classes')
     else:
-        return render_template('classes.html', classes=cur.execute('SELECT * FROM classes WHERE user_id = ?', (session['user_id'],)).fetchall())
+        print(cur.execute('SELECT drive_links FROM classes WHERE user_id = ?', (session['user_id'],)).fetchall())
+        return render_template('classes.html', classes=cur.execute('SELECT * FROM classes WHERE user_id = ?', (session['user_id'],)).fetchall(), links=cur.execute('SELECT drive_links FROM classes WHERE user_id = ?', (session['user_id'],)).fetchall()[0][0].split(', '))
 
 def apology(error, code=400):
     """Render message as an apology to user."""
